@@ -1,7 +1,5 @@
 let React;
-let ReactDOM;
 let ReactDOMClient;
-let Scheduler;
 let Offscreen;
 let container;
 let act;
@@ -26,7 +24,7 @@ describe('ReactOffscreen', () => {
   });
   
   // @gate enableOffscreen
-  it('does not attach event handlers by default', async () => {
+  xit('does not attach event handlers by default', async () => {
     const onClick = jest.fn();
     let offscreenRef;
 
