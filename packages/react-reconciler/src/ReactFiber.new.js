@@ -22,12 +22,10 @@ import type {
 import {
   getExecutionContext,
   RenderContext,
-  CommitContext, 
-  NoContext
+  CommitContext,
+  NoContext,
 } from './ReactFiberWorkLoop.new';
-import {
-  scheduleMicrotask,
-} from './ReactFiberHostConfig';
+import {scheduleMicrotask} from './ReactFiberHostConfig';
 import type {TracingMarkerInstance} from './ReactFiberTracingMarkerComponent.new';
 
 import {

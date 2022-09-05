@@ -22,7 +22,7 @@ describe('ReactOffscreen', () => {
   afterEach(() => {
     document.body.removeChild(container);
   });
-  
+
   // @gate enableOffscreen
   xit('does not attach event handlers by default', async () => {
     const onClick = jest.fn();
@@ -45,10 +45,11 @@ describe('ReactOffscreen', () => {
     expect(offscreenRef.current).not.toBeNull();
 
     container
-     .querySelector('#span-1')
-     .dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+      .querySelector('#span-1')
+      .dispatchEvent(
+        new MouseEvent('click', {bubbles: true, cancelable: true}),
+      );
 
     expect(onClick).not.toBeCalled();
   });
-
 });

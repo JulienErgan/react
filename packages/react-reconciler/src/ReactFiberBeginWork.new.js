@@ -676,7 +676,7 @@ function updateOffscreenComponent(
 
   const prevState: OffscreenState | null =
     current !== null ? current.memoizedState : null;
-    
+
   markRef(current, workInProgress);
 
   if (

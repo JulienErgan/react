@@ -1077,7 +1077,9 @@ function commitLayoutEffectOnFiber(
     case OffscreenComponent: {
       const isModernRoot = (finishedWork.mode & ConcurrentMode) !== NoMode;
       if (isModernRoot) {
-        const isHidden = finishedWork.memoizedState !== null || finishedWork.stateNode._isDetached;
+        const isHidden =
+          finishedWork.memoizedState !== null ||
+          finishedWork.stateNode._isDetached;
         const newOffscreenSubtreeIsHidden =
           isHidden || offscreenSubtreeIsHidden;
         if (newOffscreenSubtreeIsHidden) {
@@ -1123,8 +1125,6 @@ function commitLayoutEffectOnFiber(
         } else if (finishedWork.pendingProps.mode !== undefined) {
           safelyDetachRef(finishedWork, finishedWork.return);
         }
-
-
       } else {
         recursivelyTraverseLayoutEffects(
           finishedRoot,
