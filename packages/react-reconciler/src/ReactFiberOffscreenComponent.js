@@ -54,5 +54,5 @@ export type OffscreenInstance = {|
   retryCache: WeakSet<Wakeable> | Set<Wakeable> | null,
   detach: () => void,
   attach: () => void,
-  _isDetached: Boolean,
+  _isDetached: boolean,
 |};

@@ -744,7 +744,8 @@ export function createFiberFromOffscreen(
     },
     attach: () => {
       primaryChildInstance._isDetached = false;
-    }
+    },
+    _isDetached: false,
   };
 
   if (pendingProps.mode === null) {
@@ -777,6 +778,7 @@ export function createFiberFromLegacyHidden(
     attach: () => {
       // noop
     },
+    _isDetached: false,
   };
   fiber.stateNode = instance;
   return fiber;

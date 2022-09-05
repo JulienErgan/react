@@ -1121,7 +1121,7 @@ function commitLayoutEffectOnFiber(
             safelyAttachRef(finishedWork, finishedWork.return);
           }
         } else if (finishedWork.pendingProps.mode !== undefined) {
-          safelyDetachRef(finishedWork);
+          safelyDetachRef(finishedWork, finishedWork.return);
         }
 
 
