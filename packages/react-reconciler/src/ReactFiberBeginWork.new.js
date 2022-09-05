@@ -676,10 +676,14 @@ function updateOffscreenComponent(
 
   const prevState: OffscreenState | null =
     current !== null ? current.memoizedState : null;
+    
+  markRef(current, workInProgress);
 
   if (
     nextProps.mode === 'hidden' ||
-    (enableLegacyHidden && nextProps.mode === 'unstable-defer-without-hiding')
+    (enableLegacyHidden &&
+      nextProps.mode === 'unstable-defer-without-hiding') ||
+    workInProgress.stateNode._isDetached
   ) {
     // Rendering a hidden tree.
 

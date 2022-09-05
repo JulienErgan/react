@@ -1077,7 +1077,7 @@ function commitLayoutEffectOnFiber(
     case OffscreenComponent: {
       const isModernRoot = (finishedWork.mode & ConcurrentMode) !== NoMode;
       if (isModernRoot) {
-        const isHidden = finishedWork.memoizedState !== null;
+        const isHidden = finishedWork.memoizedState !== null || finishedWork.stateNode._isDetached;
         const newOffscreenSubtreeIsHidden =
           isHidden || offscreenSubtreeIsHidden;
         if (newOffscreenSubtreeIsHidden) {
@@ -1115,6 +1115,16 @@ function commitLayoutEffectOnFiber(
           offscreenSubtreeIsHidden = prevOffscreenSubtreeIsHidden;
           offscreenSubtreeWasHidden = prevOffscreenSubtreeWasHidden;
         }
+
+        if (finishedWork.pendingProps.mode === null) {
+          if (flags & Ref) {
+            safelyAttachRef(finishedWork, finishedWork.return);
+          }
+        } else if (finishedWork.pendingProps.mode !== undefined) {
+          safelyDetachRef(finishedWork);
+        }
+
+
       } else {
         recursivelyTraverseLayoutEffects(
           finishedRoot,
@@ -2648,7 +2658,7 @@ function commitMutationEffectsOnFiber(
           }
         }
 
-        if (supportsMutation) {
+        if (supportsMutation && offscreenInstance._isDetached !== true) {
           // TODO: This needs to run whenever there's an insertion or update
           // inside a hidden Offscreen tree.
           hideOrUnhideAllChildren(offscreenBoundary, isHidden);
