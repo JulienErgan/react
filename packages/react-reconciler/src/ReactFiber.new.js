@@ -19,6 +19,15 @@ import type {
   OffscreenProps,
   OffscreenInstance,
 } from './ReactFiberOffscreenComponent';
+import {
+  getExecutionContext,
+  RenderContext,
+  CommitContext, 
+  NoContext
+} from './ReactFiberWorkLoop.new';
+import {
+  scheduleMicrotask,
+} from './ReactFiberHostConfig';
 import type {TracingMarkerInstance} from './ReactFiberTracingMarkerComponent.new';
 
 import {
@@ -724,7 +733,14 @@ export function createFiberFromOffscreen(
     retryCache: null,
     transitions: null,
     detach: () => {
-      primaryChildInstance._isDetached = true;
+      const executionContext = getExecutionContext();
+      if ((executionContext & (RenderContext | CommitContext)) !== NoContext) {
+        scheduleMicrotask(() => {
+          primaryChildInstance._isDetached = true;
+        });
+      } else {
+        primaryChildInstance._isDetached = true;
+      }
     },
     attach: () => {
       primaryChildInstance._isDetached = false;
