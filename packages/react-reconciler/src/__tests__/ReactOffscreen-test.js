@@ -1370,6 +1370,12 @@ describe('ReactOffscreen', () => {
       });
 
       expect(offscreenRef.current).toBeNull();
+
+      await act(async () => {
+        root.render(<App mode={null} />);
+      });
+
+      expect(offscreenRef.current).not.toBeNull();
     });
 
     // @gate enableOffscreen
